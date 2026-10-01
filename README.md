@@ -362,6 +362,6 @@ V53__add_column_nickname_to_patients.sql
 
 ## 👤 Autor
 
-**Manuel Isaac Camaño Díaz**: estudiante de desarrollo de software en **Campuslands**, Bucaramanga 🇨🇴
+**Manuel Isaac Camaño Díaz**
 
 [![GitHub](https://img.shields.io/badge/GitHub-manuelisaaccamanidiaz--lgtm-181717?logo=github)](https://github.com/manuelisaaccamanidiaz-lgtm)
