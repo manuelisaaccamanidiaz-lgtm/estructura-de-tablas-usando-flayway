@@ -1,42 +1,36 @@
+# ===================== PERFIL: DESARROLLO =====================
 spring:
-    datasource:
-        url: jdbc:postgresql://localhost:5432/database
-        username: usuario
-        password: contraseña
-        driver-class-name: org.postgresql.Driver
+  # ---------- Conexión a PostgreSQL ----------
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:mindconnect_db}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
 
-    jpa:
-        hibernate:
-            ddl-auto: none
-        show-sql: true
-        properties:
-            hibernate:
-                dialect: org.hibernate.dialect.PostgreSQLDialect
-                "[physical_naming_strategy]": org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-                "[default_schema]": database
-                "[format_sql]": true
+  # ---------- JPA / Hibernate ----------
+  jpa:
+    hibernate:
+      ddl-auto: none            # Flyway crea las tablas, Hibernate NO
+    show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        "[physical_naming_strategy]": org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        "[default_schema]": mindconnect
+        "[format_sql]": true
 
-    flyway:
-        enabled: true
-        locations: classpath:db/migration
-        create-schemas: true
-        init-sqls:
-            -CREATE SCHEMA IF NOT EXISTS database;
-        schemas:
-            - database
-        default-schema: database
-        table: flyway_schema_history_database
-        baseline-on-migrate: true
-        baseline-version: 0
-        placeholders:
-            db_schema: database_schema
+  # ---------- Flyway ----------
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    create-schemas: true        # crea el esquema si no existe
+    schemas:
+      - mindconnect
+    default-schema: mindconnect
+    table: flyway_schema_history
+    baseline-on-migrate: true
+    baseline-version: 0
 
-queue:
-    block-users:
-        fixed-delay-ms: 5000
-
-server:
-    port: 8081
-
+# ---------- CORS (para el frontend) ----------
 cors:
-    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173,http://localhost:3000}
+  allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173,http://localhost:3000} 
